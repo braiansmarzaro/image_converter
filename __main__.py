@@ -36,10 +36,12 @@ if uploaded_file is not None:
 
     output_bytes = convert_heic_to_jpg(uploaded_file.read())
 
+    output_filename = uploaded_file.name.replace(".HEIC",".jpg")    
+    
     st.download_button(
         label="Download JPG",
         data=output_bytes,
-        file_name="converted_image.jpg",
+        file_name=output_filename,
         mime="image/jpeg"
     )
     st.image(output_bytes, caption='Converted JPG image', use_container_width=True)

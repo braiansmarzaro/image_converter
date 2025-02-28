@@ -2,7 +2,6 @@ import streamlit as st
 from PIL import Image
 import pyheif
 import io
-from streamlit.cli import main
 
 def convert_heic_to_jpg(input_bytes):
     heif_file = pyheif.read(input_bytes)
@@ -41,9 +40,3 @@ if uploaded_file is not None:
 
 else:
     st.write("Please upload a HEIC file.")
-
-
-
-if __name__ == "__main__":
-    st._is_running_with_streamlit = True
-    main()

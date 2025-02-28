@@ -31,19 +31,18 @@ uploaded_file = st.file_uploader("Choose a HEIC file", type="heic")
 
 if uploaded_file is not None:
     #st.image(uploaded_file, caption='Uploaded HEIC image', use_container_width=True)
-    st.write("\nConverting...")
+    if 'output_bytes' not in locals():
+        st.write("\nConverting...")
 
     output_bytes = convert_heic_to_jpg(uploaded_file.read())
 
-    st.image(output_bytes, caption='Converted JPG image', use_container_width=True)
     st.download_button(
         label="Download JPG",
         data=output_bytes,
         file_name="converted_image.jpg",
         mime="image/jpeg"
     )
-
-    st.write("\nDone!")
+    st.image(output_bytes, caption='Converted JPG image', use_container_width=True)
 
 else:
     st.write("Please upload a HEIC file.")

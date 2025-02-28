@@ -1,18 +1,25 @@
 import streamlit as st
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 import pyheif
 import io
 
 def convert_heic_to_jpg(input_bytes):
-    heif_file = pyheif.read(input_bytes)
-    image = Image.frombytes(
-        heif_file.mode, 
-        heif_file.size, 
-        heif_file.data,
-        "raw",
-        heif_file.mode,
-        heif_file.stride,
-    )
+    try:
+        heif_file = pyheif.read(input_bytes)
+        image = Image.frombytes(
+            heif_file.mode, 
+            heif_file.size, 
+            heif_file.data,
+            "raw",
+            heif_file.mode,
+            heif_file.stride,
+        )
+    except pyheif.error.HeifError as e:
+        st.error(f"Error reading HEIC file: {e}")
+        return None
+    except UnidentifiedImageError as e:
+        st.error(f"Cannot identify image file: {e}")
+        return None
     output_bytes = io.BytesIO()
     image.save(output_bytes, "JPEG")
     output_bytes.seek(0)

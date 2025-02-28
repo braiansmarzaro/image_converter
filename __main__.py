@@ -20,9 +20,9 @@ def convert_heic_to_jpg(input_bytes):
     except UnidentifiedImageError as e:
         st.error(f"Cannot identify image file: {e}")
         return None
-    output_bytes = io.BytesIO()
-    image.save(output_bytes, "JPEG")
-    output_bytes.seek(0)
+    output_buffer = io.BytesIO()
+    image.save(output_buffer, "JPEG")
+    output_bytes = output_buffer.getvalue()
     return output_bytes
 
 st.title("HEIC to JPG Converter")

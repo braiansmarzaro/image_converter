@@ -30,7 +30,7 @@ st.title("HEIC to JPG Converter")
 uploaded_file = st.file_uploader("Choose a HEIC file", type="heic")
 
 if uploaded_file is not None:
-    st.image(uploaded_file, caption='Uploaded HEIC image', use_container_width=True)
+    #st.image(uploaded_file, caption='Uploaded HEIC image', use_container_width=True)
     st.write("\nConverting...")
 
     output_bytes = convert_heic_to_jpg(uploaded_file.read())
